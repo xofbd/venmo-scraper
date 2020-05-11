@@ -43,7 +43,8 @@ def combine_jsons(files, date):
         json.dump(data_all, f)
 
     # Delete snapshot files
-    [os.remove(f) for f in files_of_date]
+    for f in files_of_date:
+        os.remove(f)
 
 
 def main():
