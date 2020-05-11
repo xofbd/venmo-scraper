@@ -1,6 +1,7 @@
 #!/opt/conda/envs/data3/bin/python
 """
-Note: As of Apri
+Note: As of late March, Venmo started putting out fake data to their public web
+API.
 """
 
 from datetime import datetime
