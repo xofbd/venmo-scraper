@@ -55,10 +55,5 @@ def main():
         combine_jsons(files, date)
 
 
-def local_path(path):
-    """Return path relative to local file."""
-    return os.path.join(os.path.dirname(__file__), path)
-
-
 if __name__ == '__main__':
     main()

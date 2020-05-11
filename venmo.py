@@ -9,24 +9,15 @@ import os
 
 import requests
 
-from combine_jsons import local_path
+from utils import dump_data, local_path
 
 
 def get_data(url):
+    """Return JSON of response from GET request of endpoint."""
     r = requests.get(url)
     data = r.json()['data']
 
     return data
-
-
-def dump_data(data, output_dir):
-    now = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-    file_name = 'venmo_data' + '_' + now + '.json'
-    path_name = os.path.join(output_dir, file_name)
-    print("Dumping {}".format(file_name))
-
-    with open(path_name, 'w') as f:
-        json.dump(data, f)
 
 
 def main():
