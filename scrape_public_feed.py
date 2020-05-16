@@ -6,6 +6,7 @@ import time
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
 from utils import dump_data, local_path
@@ -23,11 +24,15 @@ def visit_public_feed(secrets, sleep_duration=2):
 
 def sign_into_venmo(secrets):
     """Return web driver signed into Venmo."""
-    profile = FirefoxProfile('/home/dbf/.mozilla/firefox/nh3otjry.default')
-    driver = webdriver.Firefox(profile)
-    driver.get('https://venmo.com/account/sign-in')
 
-    # Fill in login credentials
+    # Create browser driver. Note, needs to be headless to run via CLI.
+    profile = FirefoxProfile('/home/dbf/.mozilla/firefox/nh3otjry.default')
+    options = Options()
+    options.headless = True  # needed to run via CLI
+    driver = webdriver.Firefox(profile, options=options)
+
+    # Fill in login credentials.
+    driver.get('https://venmo.com/account/sign-in')
     inputs = driver.find_elements_by_css_selector('input.auth-form-input')
     button = driver.find_element_by_css_selector('button.ladda-button')
 
@@ -57,7 +62,7 @@ def get_stories(driver):
 
 
 def parse_story(element):
-    """Return scraped data from Venmo's public feed."""
+    """Return scraped data from Venmo's public feed as dictionary."""
 
     # Define CSS selectors to use
     username_sender_slctr = 'p.feed-description__notes__headline a'
