@@ -12,9 +12,9 @@ from selenium.webdriver.firefox.webdriver import FirefoxProfile
 from utils import dump_data, local_path
 
 
-def visit_public_feed(secrets, sleep_duration=2):
+def visit_public_feed(secrets, headless, sleep_duration=2):
     """Return web driver on the public feed page."""
-    driver = sign_into_venmo(secrets)
+    driver = sign_into_venmo(secrets, headless)
     time.sleep(sleep_duration)
 
     driver.get('https://venmo.com/?feed=public')
@@ -22,13 +22,13 @@ def visit_public_feed(secrets, sleep_duration=2):
     return driver
 
 
-def sign_into_venmo(secrets):
+def sign_into_venmo(secrets, headless):
     """Return web driver signed into Venmo."""
 
     # Create browser driver. Note, needs to be headless to run via CLI.
     profile = FirefoxProfile('/home/dbf/.mozilla/firefox/nh3otjry.default')
     options = Options()
-    options.headless = True  # needed to run via CLI
+    options.headless = headless  # needed to run via CLI
     driver = webdriver.Firefox(profile, options=options)
 
     # Fill in login credentials.
@@ -105,7 +105,7 @@ def parse_story(element):
     }
 
 
-def scrape_public_feed():
+def scrape_public_feed(headless=True):
     output_dir = local_path('data')
     try:
         os.mkdir(output_dir)
@@ -115,7 +115,7 @@ def scrape_public_feed():
     with open('secrets/secrets.json', 'r') as f:
         secrets = json.load(f)
 
-    driver = visit_public_feed(secrets)
+    driver = visit_public_feed(secrets, headless)
     data = get_data(driver)
     dump_data(data, output_dir)
     driver.close()
