@@ -122,11 +122,24 @@ def scrape_public_feed(headless=True):
 
 
 if __name__ == '__main__':
+    import argparse
     import random
 
-    # Randomly sleep to mimic human behavior
-    scale = 60
-    wait = scale * random.random()
-    time.sleep(wait)
+    parser = argparse.ArgumentParser(description="Scrape Venmo's public feed")
+    parser.add_argument('-s', '--sleep',
+                        default=False,
+                        action='store_true',
+                        help='sleep to try to mimic human behavior')
+    parser.add_argument('-g', '--graphics',
+                        default=False,
+                        action='store_true',
+                        help="use the browser's GUI")
+    args = parser.parse_args()
 
-    scrape_public_feed()
+    # Randomly sleep to mimic human behavior
+    if args.sleep:
+        scale = 60
+        wait = scale * random.random()
+        time.sleep(wait)
+
+    scrape_public_feed(headless=(not args.graphics))
