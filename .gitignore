@@ -3,3 +3,4 @@ daily
 data
 secrets
 venv
+geckodriver.log
