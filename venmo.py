@@ -1,4 +1,4 @@
-#!/opt/conda/envs/data3/bin/python
+#!/usr/bin/env python3
 """
 Note: As of late March, Venmo started putting out fake data to their public web
 API.
