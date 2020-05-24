@@ -6,6 +6,8 @@ import json
 import os
 import re
 
+from utils import local_path
+
 
 def get_unique_dates(files):
     """Return a set of all unique dates from all JSON files."""
@@ -48,8 +50,7 @@ def combine_jsons(files, date):
 
 
 def main():
-    files = glob.glob(os.path.join(
-        os.path.dirname(__file__), 'data', '*.json'))
+    files = glob.glob(local_path(os.path.join('data', '*.json')))
     unique_dates = get_unique_dates(files)
 
     for date in unique_dates:
