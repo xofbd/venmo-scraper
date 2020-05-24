@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import logging
 import os
 import time
 
@@ -11,13 +12,27 @@ from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
 from utils import dump_data, local_path
 
+# Configure logging
+try:
+    os.mkdir(local_path('logs'))
+except OSError:
+    pass
+
+logging.basicConfig(filename=local_path(os.path.join('logs', 'venmo.log')),
+                    filemode='a',
+                    format='%(asctime)s:%(message)s',
+                    level=logging.WARNING)
+
 
 def visit_public_feed(secrets, headless, sleep_duration=2):
     """Return web driver on the public feed page."""
     driver = sign_into_venmo(secrets, headless)
     time.sleep(sleep_duration)
-
     driver.get('https://venmo.com/?feed=public')
+
+    if driver.current_url != 'https://venmo.com/?feed=public#public':
+        logging.error(f'Could not sign into Venmo. The current URL of the driver is {driver.current_url}')
+        raise Exception
 
     return driver
 
@@ -51,7 +66,7 @@ def get_data(driver):
         try:
             data.append(parse_story(story))
         except NoSuchElementException:
-            pass
+            logging.warning('Could not parse story.', exc_info=True)
 
     return data
 

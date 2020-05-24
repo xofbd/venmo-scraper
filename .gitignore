@@ -1,6 +1,7 @@
 __pycache__
 daily
 data
+geckodriver.log
+logs
 secrets
 venv
-geckodriver.log
