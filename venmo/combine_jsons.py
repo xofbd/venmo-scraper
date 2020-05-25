@@ -33,12 +33,12 @@ def combine_jsons(files, date):
 
     # Dump collected JSON to disk
     try:
-        os.mkdir(local_path('daily'))
+        os.mkdir(local_path('data/daily_data'))
     except OSError:
         pass
 
     file_name = 'venmo_data' + '_' + date + '.json'
-    path_name = os.path.join(local_path('daily'), file_name)
+    path_name = os.path.join(local_path('data/daily_data'), file_name)
     print("Dumping data to {}".format(path_name))
 
     with open(path_name, 'w') as f:
@@ -50,7 +50,7 @@ def combine_jsons(files, date):
 
 
 def main():
-    files = glob.glob(local_path(os.path.join('data', '*.json')))
+    files = glob.glob(local_path(os.path.join('data', 'snapshots', '*.json')))
     unique_dates = get_unique_dates(files)
 
     for date in unique_dates:

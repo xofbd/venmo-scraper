@@ -23,7 +23,7 @@ def get_data(url):
 
 def main():
     url = 'https://venmo.com/api/v5/public'
-    output_dir = local_path('data')
+    output_dir = local_path('data/snapshots')
     try:
         os.mkdir(output_dir)
     except OSError:
