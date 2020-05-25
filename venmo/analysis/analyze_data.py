@@ -1,6 +1,7 @@
-from spacy.lang.en import STOP_WORDS
-
 from spot_fake_data import load_data
+
+with open('stop_words', 'r') as f:
+    STOP_WORDS = {line.strip('\n') for line in f}
 
 
 def data_generator(json_paths):
