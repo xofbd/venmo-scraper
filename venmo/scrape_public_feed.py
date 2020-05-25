@@ -41,7 +41,9 @@ def sign_into_venmo(secrets, headless):
     """Return web driver signed into Venmo."""
 
     # Create browser driver. Note, needs to be headless to run via CLI.
-    profile = FirefoxProfile('/home/dbf/.mozilla/firefox/nh3otjry.default')
+    # The profile is needed because Venmo will need to recognize your device to
+    # avoid two-factor authentication.
+    profile = FirefoxProfile(secrets['profile_path'])
     options = Options()
     options.headless = headless  # needed to run via CLI
     driver = webdriver.Firefox(profile, options=options)
