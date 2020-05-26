@@ -52,7 +52,7 @@ def top_keys(counter, N=10):
 if __name__ == '__main__':
     import glob
 
-    json_paths = glob.glob('../data/daily_data/*.json')
+    json_paths = glob.glob('data/daily_data/*.json')
     name_counter, num_names = most_common_names(json_paths)
     token_counter, num_tokens = most_common_tokens(json_paths)
 
