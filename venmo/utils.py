@@ -19,7 +19,7 @@ def local_path(path):
     Return the full path given the relative (to the file making the call) path.
 
     This function is needed when a script uses paths relative to its location
-    and the current working directory is not the same directory where the script
-    exists.
+    and the current working directory is not the same directory where the
+    script exists.
     """
     return os.path.join(os.path.dirname(__file__), path)

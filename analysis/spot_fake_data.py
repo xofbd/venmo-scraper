@@ -1,6 +1,6 @@
 """
-This script looks to spot when Venmo started releasing fake data to their Public
-API.
+This script looks to spot when Venmo started releasing fake data to their
+public API.
 """
 import glob
 import json
