@@ -129,7 +129,7 @@ def scrape_public_feed(headless=True):
     except OSError:
         pass
 
-    with open('secrets/secrets.json', 'r') as f:
+    with open(local_path('secrets/secrets.json'), 'r') as f:
         secrets = json.load(f)
 
     driver = visit_public_feed(secrets, headless)
