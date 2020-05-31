@@ -22,7 +22,7 @@ def name_counter(data):
 def spot_fakes(threshold=20):
     fake_files = []
 
-    for f in glob.glob('data/daily_data/*.json'):
+    for f in glob.glob('../data/daily_data/*.json'):
         data = load_data(f)
         num_names = name_counter(data)
 
