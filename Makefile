@@ -5,9 +5,8 @@ SHELL := /bin/bash
 all: venv driver
 
 venv:
-	virtualenv --python=/usr/bin/python3 venv
-	source venv/bin/activate
-	pip install -r requirements.txt
+	python3 -m venv venv
+	source venv/bin/activate && pip install -r requirements.txt
 
 driver: venv
 	wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
