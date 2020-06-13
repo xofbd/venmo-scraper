@@ -13,7 +13,7 @@ from utils import dump_data, local_path
 
 def get_data(url):
     """Return JSON of response from GET request of endpoint."""
-    r = requests.get(url)
+    r = requests.get(url, headers={'user-agent': 'transactions'})
     data = r.json()['data']
 
     return data
