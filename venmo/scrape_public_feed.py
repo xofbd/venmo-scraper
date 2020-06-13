@@ -13,15 +13,9 @@ from selenium.webdriver.firefox.webdriver import FirefoxProfile
 from utils import dump_data, local_path
 
 # Configure logging
-try:
-    os.mkdir(local_path('logs'))
-except OSError:
-    pass
-
-logging.basicConfig(filename=local_path(os.path.join('logs', 'venmo.log')),
-                    filemode='a',
-                    format='%(asctime)s:%(message)s',
-                    level=logging.WARNING)
+logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
+                    level=logging.INFO)
 
 
 def visit_public_feed(secrets, headless, sleep_duration=2):
@@ -31,7 +25,7 @@ def visit_public_feed(secrets, headless, sleep_duration=2):
     driver.get('https://venmo.com/?feed=public')
 
     if driver.current_url != 'https://venmo.com/?feed=public#public':
-        logging.error(f'Could not sign into Venmo. The current URL of the driver is {driver.current_url}')
+        logger.error(f'Could not sign into Venmo. The current URL of the driver is {driver.current_url}')
         raise Exception
 
     return driver
@@ -68,7 +62,7 @@ def get_data(driver):
         try:
             data.append(parse_story(story))
         except NoSuchElementException:
-            logging.warning('Could not parse story.', exc_info=True)
+            logger.warning('Could not parse story.', exc_info=True)
 
     return data
 
@@ -159,4 +153,5 @@ if __name__ == '__main__':
         wait = scale * random.random()
         time.sleep(wait)
 
+    logger.info("Running scraper")
     scrape_public_feed(headless=(not args.graphics))

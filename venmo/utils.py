@@ -1,17 +1,9 @@
 from datetime import datetime
 import json
+import logging
 import os
 
-
-def dump_data(data, output_dir):
-    """Dump data to disk given target directory."""
-    now = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-    file_name = 'venmo_data' + '_' + now + '.json'
-    path_name = os.path.join(output_dir, file_name)
-    print("Dumping {}".format(file_name))
-
-    with open(path_name, 'w') as f:
-        json.dump(data, f)
+logger = logging.getLogger(__name__)
 
 
 def local_path(path):
@@ -23,3 +15,15 @@ def local_path(path):
     script exists.
     """
     return os.path.join(os.path.dirname(__file__), path)
+
+
+def dump_data(data, output_dir):
+    """Dump data to disk given target directory."""
+
+    now = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    file_name = 'venmo_data' + '_' + now + '.json'
+    path_name = os.path.join(output_dir, file_name)
+    logger.info(f"Dumping {file_name}")
+
+    with open(path_name, 'w') as f:
+        json.dump(data, f)
