@@ -15,8 +15,7 @@ driver: venv
 	rm geckodriver-v0.26.0-linux64.tar.gz
 
 clean:
-	rm -rf venmo/logs
-	rm venmo/geckodriver.log
+	rm geckodriver.log
 
 remove_venv:
 	rm -rf venv
