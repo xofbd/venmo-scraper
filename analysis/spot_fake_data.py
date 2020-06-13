@@ -4,6 +4,7 @@ public API.
 """
 import glob
 import json
+import os
 
 
 def load_data(path):
@@ -30,8 +31,9 @@ def spot_fakes(threshold=20):
             fake_files.append(f)
 
     fake_files.sort()
+    filename = os.path.basename(fake_files[0])
 
-    print(f"Earliest file deemed fake: {fake_files[0]}")
+    print(f"Earliest file deemed fake: {filename}")
 
 
 if __name__ == '__main__':
