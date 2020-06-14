@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-
 from datetime import datetime
 import glob
 import json
+import logging
 import os
 import re
 
-from utils import local_path
+# Configure logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
+                    level=logging.INFO)
 
 
 def get_unique_dates(files):
@@ -38,8 +41,8 @@ def combine_jsons(files, date):
         pass
 
     file_name = 'venmo_data' + '_' + date + '.json'
-    path_name = os.path.join(local_path('data/daily_data'), file_name)
-    print("Dumping data to {}".format(path_name))
+    path_name = os.path.join('data', 'daily_data', file_name)
+    logger.info(f"Dumping data to {path_name}")
 
     with open(path_name, 'w') as f:
         json.dump(data_all, f)

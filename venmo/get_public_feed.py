@@ -6,11 +6,10 @@ names and messages.
 """
 import os
 import logging
-import logging.config
 
 import requests
 
-from utils import dump_data, local_path
+from utils import dump_data
 
 # Configure logging
 logger = logging.getLogger(__name__)
