@@ -36,7 +36,7 @@ def combine_jsons(files, date):
 
     # Dump collected JSON to disk
     try:
-        os.mkdir(local_path('data/daily_data'))
+        os.mkdir(os.path.join('data', 'daily_data'))
     except OSError:
         pass
 
@@ -53,7 +53,7 @@ def combine_jsons(files, date):
 
 
 def main():
-    files = glob.glob(local_path(os.path.join('data', 'snapshots', '*.json')))
+    files = glob.glob(os.path.join('data', 'snapshots', '*.json'))
     unique_dates = get_unique_dates(files)
 
     for date in unique_dates:

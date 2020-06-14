@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import json
 import logging
 import os
@@ -10,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
-from utils import dump_data, local_path
+from utils import dump_data
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -117,13 +116,13 @@ def parse_story(element):
 
 
 def scrape_public_feed(headless=True):
-    output_dir = local_path('data')
+    output_dir = os.path.join('data', 'snapshots')
     try:
         os.mkdir(output_dir)
     except OSError:
         pass
 
-    with open(local_path('secrets/secrets.json'), 'r') as f:
+    with open('secrets/secrets.json', 'r') as f:
         secrets = json.load(f)
 
     driver = visit_public_feed(secrets, headless)

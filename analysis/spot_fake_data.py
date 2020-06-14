@@ -21,6 +21,7 @@ def name_counter(data):
 
 
 def spot_fakes(threshold=20):
+    """Print out the earliest JSON file suspected to be fake."""
     fake_files = []
 
     for f in glob.glob('../data/daily_data/*.json'):
