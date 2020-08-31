@@ -3,5 +3,5 @@ daily
 data
 geckodriver.log
 logs
-secrets
+.env
 venv

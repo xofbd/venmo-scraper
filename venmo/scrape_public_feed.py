@@ -4,6 +4,7 @@ import logging
 import os
 import time
 
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
@@ -11,15 +12,21 @@ from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
 from utils import dump_data
 
+# Load secrets
+load_dotenv()
+PROFILE_PATH = os.getenv('PROFILE_PATH')
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+
 # Configure logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
                     level=logging.INFO)
 
 
-def visit_public_feed(secrets, headless, sleep_duration=2):
+def visit_public_feed(headless, sleep_duration=2):
     """Return web driver on the public feed page."""
-    driver = sign_into_venmo(secrets, headless)
+    driver = sign_into_venmo(headless)
     time.sleep(sleep_duration)
     driver.get('https://venmo.com/?feed=public')
 
@@ -30,13 +37,13 @@ def visit_public_feed(secrets, headless, sleep_duration=2):
     return driver
 
 
-def sign_into_venmo(secrets, headless):
+def sign_into_venmo(headless):
     """Return web driver signed into Venmo."""
 
     # Create browser driver. Note, needs to be headless to run via CLI.
     # The profile is needed because Venmo will need to recognize your device to
     # avoid two-factor authentication.
-    profile = FirefoxProfile(secrets['profile_path'])
+    profile = FirefoxProfile(PROFILE_PATH)
     options = Options()
     options.headless = headless  # needed to run via CLI
     driver = webdriver.Firefox(profile, options=options)
@@ -46,8 +53,8 @@ def sign_into_venmo(secrets, headless):
     inputs = driver.find_elements_by_css_selector('input.auth-form-input')
     button = driver.find_element_by_css_selector('button.ladda-button')
 
-    inputs[0].send_keys(secrets['username'])
-    inputs[1].send_keys(secrets['password'])
+    inputs[0].send_keys(USERNAME)
+    inputs[1].send_keys(PASSWORD)
     button.click()
 
     return driver
@@ -122,10 +129,7 @@ def scrape_public_feed(headless=True):
     except OSError:
         pass
 
-    with open('secrets/secrets.json', 'r') as f:
-        secrets = json.load(f)
-
-    driver = visit_public_feed(secrets, headless)
+    driver = visit_public_feed(headless)
     data = get_data(driver)
     dump_data(data, output_dir)
     driver.close()
