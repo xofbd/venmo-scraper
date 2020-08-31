@@ -7,7 +7,7 @@ Venmo is a service that allows people to easily send money to each other. Depend
 To get started, follow these steps. Note, unless otherwise noted, all paths are relative to project's root directory, `venmo`.
 
 1. Clone this repo.
-1. Create a virtual environment. The project requires `selenium` and `requests` Python packages. A `requirements.txt` file is provided and a virtual environment can be created by running:
+1. Create a virtual environment. The project requires `selenium`, `requests`, and `dotenv` Python packages. A `requirements.txt` file is provided and a virtual environment can be created by running:
 ```bash
 make venv
 ```
@@ -16,13 +16,11 @@ make venv
 make driver
 ```
 to install the appropriate browser driver. Note, running `make all` takes care of this and the previous step.
-1. You need to create a Venmo account and create a JSON file in the following format:
-```json
-{
-    "username": "your_username",
-    "password": "your_password",
-    "profile_path": "/path/to/firefox/profile"
-}
+1. You need to create a Venmo account and create a file named `.env` in the project's root directory. Use the below template for your `.env` file, filling in your details.
+```bash
+PROFILE_PATH=/path/to/profile
+USERNAME=my_email@example.com
+PASSWORD=password_1234
 ```
 The `profle_path` is the path to your Firefox profile. Providing your profile will prevent Venmo from asking you to enter a verification code every time you run `scrape_public_feed.py`. You will need to at least sign into Venmo once using Firefox to prevent asking for the verification code. The profile path may vary across installations but mine is located in `~/.mozilla/firefox/nh3otjry.default`. 
 
