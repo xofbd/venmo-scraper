@@ -12,17 +12,6 @@ def load_data(path):
         return json.load(f)
 
 
-def local_path(path):
-    """
-    Return the full path given the relative (to the file making the call) path.
-
-    This function is needed when a script uses paths relative to its location
-    and the current working directory is not the same directory where the
-    script exists.
-    """
-    return os.path.join(os.path.dirname(__file__), path)
-
-
 def dump_data(data, output_dir):
     """Dump data to disk given target directory."""
 

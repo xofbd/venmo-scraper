@@ -1,6 +1,3 @@
-from venmo_scraper.analysis.spot_fake_data import load_data
-from venmo_scraper.utils import local_path
-
 from venmo_scraper.utils import load_data
 
 with open('venmo_scraper/analysis/stop_words', 'r') as f:
