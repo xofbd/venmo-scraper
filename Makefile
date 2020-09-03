@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: all clean remove_venv
+.PHONY: all driver clean remove_venv
 
 all: venv venv/bin/geckodriver
 
@@ -15,6 +15,9 @@ venv/bin/geckodriver: venv
 	mv geckodriver venv/bin
 	rm geckodriver-v0.26.0-linux64.tar.gz
 	touch venv/bin/geckodriver
+
+driver:
+	make venv/bin/geckodriver
 
 clean:
 	rm geckodriver.log
