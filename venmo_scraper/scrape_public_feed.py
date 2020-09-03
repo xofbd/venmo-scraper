@@ -10,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
-from utils import dump_data
+from venmo_scraper.utils import dump_data
 
 # Load secrets
 load_dotenv()

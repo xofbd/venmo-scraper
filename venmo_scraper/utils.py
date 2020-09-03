@@ -6,6 +6,12 @@ import os
 logger = logging.getLogger(__name__)
 
 
+def load_data(path):
+    """Return decoded JSON."""
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
 def local_path(path):
     """
     Return the full path given the relative (to the file making the call) path.

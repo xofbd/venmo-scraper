@@ -9,7 +9,7 @@ import logging
 
 import requests
 
-from utils import dump_data
+from venmo_scraper.utils import dump_data
 
 # Configure logging
 logger = logging.getLogger(__name__)

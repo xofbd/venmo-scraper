@@ -1,6 +1,9 @@
-from spot_fake_data import load_data
+from venmo_scraper.analysis.spot_fake_data import load_data
+from venmo_scraper.utils import local_path
 
-with open('stop_words', 'r') as f:
+from venmo_scraper.utils import load_data
+
+with open('venmo_scraper/analysis/stop_words', 'r') as f:
     STOP_WORDS = {line.strip('\n') for line in f}
 
 
@@ -52,7 +55,7 @@ def top_keys(counter, N=10):
 if __name__ == '__main__':
     import glob
 
-    json_paths = glob.glob('../data/daily_data/*.json')
+    json_paths = glob.glob('data/daily_data/*.json')
     name_counter, num_names = most_common_names(json_paths)
     token_counter, num_tokens = most_common_tokens(json_paths)
 

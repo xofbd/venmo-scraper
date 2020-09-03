@@ -2,7 +2,7 @@
 
 source venv/bin/activate
 
-if venmo/scrape_public_feed.py --sleep; then
+if python -m venmo_scraper.scrape_public_feed --sleep; then
     echo "Success!"
 else
     echo "An error occurred."
