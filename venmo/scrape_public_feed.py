@@ -15,7 +15,7 @@ from utils import dump_data
 # Load secrets
 load_dotenv()
 PROFILE_PATH = os.getenv('PROFILE_PATH')
-USERNAME = os.getenv('USERNAME')
+LOGIN = os.getenv('LOGIN')
 PASSWORD = os.getenv('PASSWORD')
 
 # Configure logging
@@ -53,7 +53,7 @@ def sign_into_venmo(headless):
     inputs = driver.find_elements_by_css_selector('input.auth-form-input')
     button = driver.find_element_by_css_selector('button.ladda-button')
 
-    inputs[0].send_keys(USERNAME)
+    inputs[0].send_keys(LOGIN)
     inputs[1].send_keys(PASSWORD)
     button.click()
 

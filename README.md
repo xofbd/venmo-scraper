@@ -19,7 +19,7 @@ to install the appropriate browser driver. Note, running `make all` takes care o
 1. You need to create a Venmo account and create a file named `.env` in the project's root directory. Use the below template for your `.env` file, filling in your details.
 ```bash
 PROFILE_PATH=/path/to/profile
-USERNAME=my_email@example.com
+LOGIN=my_email@example.com
 PASSWORD=password_1234
 ```
 The `profle_path` is the path to your Firefox profile. Providing your profile will prevent Venmo from asking you to enter a verification code every time you run `scrape_public_feed.py`. You will need to at least sign into Venmo once using Firefox to prevent asking for the verification code. The profile path may vary across installations but mine is located in `~/.mozilla/firefox/nh3otjry.default`. 
