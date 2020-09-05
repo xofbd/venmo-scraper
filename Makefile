@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: all driver clean remove_venv
+.PHONY: all driver tests clean remove_venv
 
 all: venv venv/bin/geckodriver
 
@@ -18,6 +18,9 @@ venv/bin/geckodriver: venv
 
 driver:
 	make venv/bin/geckodriver
+
+tests:
+	pytest tests
 
 clean:
 	rm geckodriver.log
