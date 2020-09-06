@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import json
 import logging
 import os
 import time
@@ -152,8 +151,7 @@ if __name__ == '__main__':
 
     # Randomly sleep to mimic human behavior
     if args.sleep:
-        scale = 60
-        wait = scale * random.random()
+        wait = 60 * random.random()  # in seconds
         time.sleep(wait)
 
     logger.info("Running scraper")
