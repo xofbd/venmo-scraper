@@ -5,3 +5,4 @@ geckodriver.log
 logs
 .env
 venv
+*.egg-info
