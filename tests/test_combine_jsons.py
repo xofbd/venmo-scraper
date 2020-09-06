@@ -2,10 +2,10 @@ import json
 import os
 from unittest.mock import call, Mock, patch
 
-from venmo_scraper.combine_jsons import get_unique_dates, combine_jsons
+from venmo_scraper.utils.consolidate_data import get_unique_dates, combine_jsons
 
 
-@patch('venmo_scraper.combine_jsons.datetime')
+@patch('venmo_scraper.utils.consolidate_data.datetime')
 def test_get_unique_dates(mock_datetime):
     mock_datetime.now().strftime.return_value = '2020-09-01'
 
@@ -16,7 +16,7 @@ def test_get_unique_dates(mock_datetime):
     assert unique_dates == get_unique_dates(files)
 
 
-@patch('venmo_scraper.combine_jsons.os.mkdir')
+@patch('venmo_scraper.utils.consolidate_data.os.mkdir')
 def test_combine_jsons(mock_mkdir):
     date = '2020-09-03'
     file_names = ['venmo_data_2020-09-03-17:32:18.json',
@@ -30,9 +30,9 @@ def test_combine_jsons(mock_mkdir):
     calls = [call(p) for p in path_names[:3]]
     path_target = os.path.join('tests', 'data', 'daily_data',
                                f'venmo_data_{date}.json')
-    with patch('venmo_scraper.combine_jsons.os.path.join') as mock_join:
+    with patch('venmo_scraper.utils.consolidate_data.os.path.join') as mock_join:
         mock_join.return_value = path_target
-        with patch('venmo_scraper.combine_jsons.os.remove') as mock_remove:
+        with patch('venmo_scraper.utils.consolidate_data.os.remove') as mock_remove:
             combine_jsons(path_names, date)
 
     mock_remove.assert_has_calls(calls, any_order=False)
