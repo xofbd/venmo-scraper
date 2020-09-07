@@ -16,7 +16,7 @@ make venv
 make driver
 ```
 to install the appropriate browser driver. Note, running `make all` takes care of this and the previous step.
-1. You need to create a Venmo account and create a file named `.env` in the project's root directory. Use the below template for your `.env` file, filling in your details.
+1. You need to create a Venmo account and create a file named `.env` in the project's root directory. Use the below template for your `.env` file, filling in your details. You can also run `bin/generate_env.sh` to help generate the file.
 ```bash
 PROFILE_PATH=/path/to/profile
 LOGIN=my_email@example.com
