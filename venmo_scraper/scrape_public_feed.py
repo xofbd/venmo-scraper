@@ -25,7 +25,9 @@ def visit_public_feed(headless, sleep_duration=2):
     driver.get('https://venmo.com/?feed=public')
 
     if driver.current_url != 'https://venmo.com/?feed=public#public':
-        logger.error(f'Could not sign into Venmo. The current URL of the driver is {driver.current_url}')
+        message = ('Could not sign into Venmo. '
+                   f'The current URL of the driver is {driver.current_url}')
+        logger.error(message)
         raise Exception
 
     return driver
