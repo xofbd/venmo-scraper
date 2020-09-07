@@ -20,7 +20,7 @@ driver:
 	make venv/bin/geckodriver
 
 tests:
-	pytest tests
+	source venv/bin/activate && pytest tests
 
 clean:
 	rm geckodriver.log
