@@ -1,9 +1,8 @@
 from datetime import datetime
 import json
-import logging
 import os
 
-logger = logging.getLogger(__name__)
+from venmo_scraper import logger
 
 
 def load_data(path):

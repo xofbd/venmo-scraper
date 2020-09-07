@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import logging
 import os
 import time
 
@@ -9,6 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
+from venmo_scraper import logger
 from venmo_scraper.utils import dump_data
 
 # Load secrets
@@ -16,11 +16,6 @@ load_dotenv()
 PROFILE_PATH = os.getenv('PROFILE_PATH')
 LOGIN = os.getenv('LOGIN')
 PASSWORD = os.getenv('PASSWORD')
-
-# Configure logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
-                    level=logging.INFO)
 
 
 def visit_public_feed(headless, sleep_duration=2):

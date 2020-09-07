@@ -2,14 +2,10 @@
 from datetime import datetime
 import glob
 import json
-import logging
 import os
 import re
 
-# Configure logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
-                    level=logging.INFO)
+from venmo_scraper.utils import dump_data
 
 
 def get_unique_dates(files):

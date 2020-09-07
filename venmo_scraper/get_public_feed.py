@@ -5,16 +5,10 @@ API. The fake data consists of twenty or so transactions with generic user
 names and messages.
 """
 import os
-import logging
 
 import requests
 
 from venmo_scraper.utils import dump_data
-
-# Configure logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s',
-                    level=logging.INFO)
 
 
 def get_data(url):
