@@ -36,12 +36,8 @@ def combine_jsons(files, date):
     except OSError:
         pass
 
-    file_name = 'venmo_data' + '_' + date + '.json'
-    path_name = os.path.join('data', 'daily_data', file_name)
-    logger.info(f"Dumping data to {path_name}")
-
-    with open(path_name, 'w') as f:
-        json.dump(data_all, f)
+    output_dir = os.path.join('data', 'daily_data')
+    dump_data(data_all, output_dir)
 
     # Delete snapshot files
     for f in files_of_date:
