@@ -6,7 +6,6 @@ import glob
 import json
 import os
 
-
 from venmo_scraper.utils import load_data
 
 
@@ -21,7 +20,7 @@ def spot_fakes(threshold=20):
     """Print out the earliest JSON file suspected to be fake."""
     fake_files = []
 
-    for f in glob.glob('data/daily_data/*.json'):
+    for f in glob.glob(os.path.join('data', 'daily_data', '*.json')):
         data = load_data(f)
         num_names = name_counter(data)
 

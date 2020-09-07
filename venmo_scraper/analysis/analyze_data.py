@@ -1,14 +1,18 @@
+import os
+
 from venmo_scraper.utils import load_data
 
-with open('venmo_scraper/analysis/stop_words', 'r') as f:
+with open(os.path.join('venmo_scraper', 'analysis', 'stop_words'), 'r') as f:
     STOP_WORDS = {line.strip('\n') for line in f}
+
+DATE_OF_FAKE_DATA = '2020-03-27'
 
 
 def data_generator(json_paths):
     """Generator yielding transactions across all JSONs."""
     for f in json_paths:
         date = f.split('_')[-1].split('.')[0]
-        if date < '2020-03-27':
+        if date < DATE_OF_FAKE_DATA:
             data = load_data(f)
             for x in data:
                 yield x
@@ -52,7 +56,7 @@ def top_keys(counter, N=10):
 if __name__ == '__main__':
     import glob
 
-    json_paths = glob.glob('data/daily_data/*.json')
+    json_paths = glob.glob(os.path.join('data', 'daily_data', '*.json'))
     name_counter, num_names = most_common_names(json_paths)
     token_counter, num_tokens = most_common_tokens(json_paths)
 
