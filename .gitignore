@@ -1,8 +1,6 @@
 __pycache__
-daily
 data
-geckodriver.log
-logs
+*.log
 .env
 venv
 *.egg-info
