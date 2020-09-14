@@ -1,2 +1,2 @@
-from .utils import dump_data, load_data
+from .utils import create_dir, dump_data, load_data
 from . import consolidate_data

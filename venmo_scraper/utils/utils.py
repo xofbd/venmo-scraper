@@ -5,6 +5,16 @@ import os
 from venmo_scraper import logger
 
 
+def create_dir(dir_):
+    """Create directory."""
+    try:
+        os.mkdir(dir_)
+        message = f"Data output director doesn't exist, creating {dir_}"
+        logger.warning(message)
+    except OSError:
+        pass
+
+
 def load_data(path):
     """Return decoded JSON."""
     with open(path, 'r') as f:

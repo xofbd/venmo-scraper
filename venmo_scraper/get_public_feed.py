@@ -4,8 +4,6 @@ Note: As of late March, Venmo started putting out fake data to their public web
 API. The fake data consists of twenty or so transactions with generic user
 names and messages.
 """
-import os
-
 import requests
 
 from venmo_scraper.utils import dump_data
@@ -19,17 +17,21 @@ def get_data(url):
     return data
 
 
-def main():
-    url = 'https://venmo.com/api/v5/public'
-    output_dir = os.path.join('data', 'snapshots')
-    try:
-        os.mkdir(output_dir)
-    except OSError:
-        pass
-
-    data = get_data(url)
+def get_public_feed(output_dir):
+    """Call Venmo public API and dump response to disk."""
+    create_dir(output_dir)
+    data = get_data()
     dump_data(data, output_dir)
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Get Venmo's public feed")
+    parser.add_argument('-o', '--output_dir',
+                        default=DEFAULT_OUTPUT_DIR,
+                        action='store',
+                        help="specify Venmo data output directory")
+    args = parser.parse_args()
+
+    get_public_feed(args.output_dir)

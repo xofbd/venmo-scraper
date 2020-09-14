@@ -118,13 +118,8 @@ def parse_story(element):
     }
 
 
-def scrape_public_feed(headless=True):
-    output_dir = os.path.join('data', 'snapshots')
-    try:
-        os.mkdir(output_dir)
-    except OSError:
-        pass
-
+def scrape_public_feed(output_dir, headless=True):
+    create_dir(output_dir)
     driver = visit_public_feed(headless)
     data = get_data(driver)
     dump_data(data, output_dir)
@@ -144,6 +139,10 @@ if __name__ == '__main__':
                         default=False,
                         action='store_true',
                         help="use the browser's GUI")
+    parser.add_argument('-o', '--output_dir',
+                        default=DEFAULT_OUTPUT_DIR,
+                        action='store',
+                        help="specify Venmo data output directory")
     args = parser.parse_args()
 
     # Randomly sleep to mimic human behavior
@@ -152,4 +151,4 @@ if __name__ == '__main__':
         time.sleep(wait)
 
     logger.info("Running scraper")
-    scrape_public_feed(headless=(not args.graphics))
+    scrape_public_feed(args.output_dir, headless=(not args.graphics))
