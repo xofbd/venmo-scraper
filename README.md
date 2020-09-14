@@ -32,7 +32,7 @@ Make sure to activate the virtual environment by running (in the root directory)
 
 Note, as of late March, Venmo started putting out fake data to their public web API. The fake data consists of twenty or so transactions with generic user names and messages. You can no longer use `get_public_feed.py` and will have to use `scrape_public_feed.py` if you want to get real Venmo transaction data.
 
-The data will be dumped in `data/snapshots` as a JSON file. The `venmo_scraper/combine_json.py` script helps you combine JSON files of the same day into one JSON file. The `analysis` directory contains several Python files that helps analyze the transaction data.
+The data will be dumped in `data/snapshots`, by default, as a JSON file. If you want to use a different directory, specify using the `--output_dir` option of `scrape_public_feed.py`. The `venmo_scraper/consolidate_json.py` script helps you combine JSON files of the same day into one JSON file. The `analysis` directory contains several Python files that helps analyze the transaction data.
 
 If you run `scrape_public_feed.py` too frequently, you might at the very least receive a soft ban where Venmo prevents you from signing in for several hours. Run this script at your own risk but running it several times a day should be fine. If you wish to use cron to automate `scrape_public_feed.py`, using `bin/run.sh` may be helpful.
 
