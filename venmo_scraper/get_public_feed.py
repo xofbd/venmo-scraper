@@ -6,12 +6,13 @@ names and messages.
 """
 import requests
 
-from venmo_scraper.utils import dump_data
+from venmo_scraper.constants import DEFAULT_OUTPUT_DIR, URL_API
+from venmo_scraper.utils import create_dir, dump_data
 
 
-def get_data(url):
+def get_data():
     """Return JSON of response from GET request of endpoint."""
-    r = requests.get(url, headers={'user-agent': 'transactions'})
+    r = requests.get(URL_API, headers={'user-agent': 'transactions'})
     data = r.json()['data']
 
     return data

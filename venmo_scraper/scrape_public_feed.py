@@ -9,7 +9,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
 from venmo_scraper import logger
-from venmo_scraper.utils import dump_data
+from venmo_scraper.constants import DEFAULT_OUTPUT_DIR, URL_PUBLIC_FEED
+from venmo_scraper.utils import create_dir, dump_data
 
 # Load secrets
 load_dotenv()
@@ -22,7 +23,7 @@ def visit_public_feed(headless, sleep_duration=2):
     """Return web driver on the public feed page."""
     driver = sign_into_venmo(headless)
     time.sleep(sleep_duration)
-    driver.get('https://venmo.com/?feed=public')
+    driver.get(URL_PUBLIC_FEED)
 
     if driver.current_url != 'https://venmo.com/?feed=public#public':
         message = ('Could not sign into Venmo. '
