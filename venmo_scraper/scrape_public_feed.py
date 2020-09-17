@@ -120,6 +120,7 @@ def parse_story(element):
 
 
 def scrape_public_feed(output_dir, headless=True):
+    """Scrape Venmo public feed data and dump to disk."""
     create_dir(output_dir)
     driver = visit_public_feed(headless)
     data = get_data(driver)
