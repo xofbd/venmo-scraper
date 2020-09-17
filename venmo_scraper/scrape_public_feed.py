@@ -130,14 +130,9 @@ def scrape_public_feed(output_dir, headless=True):
 
 if __name__ == '__main__':
     import argparse
-    import random
 
     parser = argparse.ArgumentParser(description="Scrape Venmo's public feed")
-    parser.add_argument('-s', '--sleep',
-                        default=False,
-                        action='store_true',
-                        help='sleep to try to mimic human behavior')
-    parser.add_argument('-g', '--graphics',
+    parser.add_argument('-d', '--headless',
                         default=False,
                         action='store_true',
                         help="use the browser's GUI")
@@ -147,10 +142,5 @@ if __name__ == '__main__':
                         help="specify Venmo data output directory")
     args = parser.parse_args()
 
-    # Randomly sleep to mimic human behavior
-    if args.sleep:
-        wait = 60 * random.random()  # in seconds
-        time.sleep(wait)
-
     logger.info("Running scraper")
-    scrape_public_feed(args.output_dir, headless=(not args.graphics))
+    scrape_public_feed(args.output_dir, headless=args.headless)
