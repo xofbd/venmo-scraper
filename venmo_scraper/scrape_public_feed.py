@@ -17,6 +17,7 @@ load_dotenv()
 PROFILE_PATH = os.getenv('PROFILE_PATH')
 LOGIN = os.getenv('LOGIN')
 PASSWORD = os.getenv('PASSWORD')
+DEFAULT_OUTPUT_DIR = os.getenv('OUTPUT_DIR', DEFAULT_OUTPUT_DIR)
 
 
 def visit_public_feed(headless, sleep_duration=2):
