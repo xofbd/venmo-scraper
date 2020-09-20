@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function sleep_for_duration() {
+    sleep_duration=$(( $RANDOM % 60 + 1 ))
+    echo "Sleeping for $sleep_duration seconds."
+    sleep "$sleep_duration"s
+}
+
+# Allow wrapping of script and adding sleep option
+arguments=""
+for arg in $*; do
+    case $arg in
+	--sleep | -s)
+	    sleep_option=1
+	    ;;
+	*)
+	    arguments="$arguments $arg"
+	    ;;
+    esac
+done
+
+if [[ $sleep_option -eq 1 ]]; then
+    sleep_for_duration
+fi
+
+source venv/bin/activate
+scrape_public_feed.py $arguments
