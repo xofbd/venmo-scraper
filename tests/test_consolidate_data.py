@@ -2,7 +2,7 @@ import json
 import os
 from unittest.mock import call, Mock, patch
 
-from venmo_scraper.utils.consolidate_data import get_unique_dates, combine_jsons
+from venmo_scraper.utils.consolidate_data import combine_jsons, get_unique_dates
 
 
 @patch('venmo_scraper.utils.consolidate_data.datetime')
@@ -15,38 +15,34 @@ def test_get_unique_dates(mock_datetime):
 
     assert unique_dates == get_unique_dates(files)
 
-
-@patch('venmo_scraper.utils.consolidate_data.os.mkdir')
-def test_combine_jsons(mock_mkdir):
+@patch('venmo_scraper.utils.consolidate_data.dump_data')
+@patch('venmo_scraper.utils.consolidate_data.create_dir')
+@patch('venmo_scraper.utils.consolidate_data.os.remove')
+def test_combine_jsons(mock_remove, mock_create_dir, mock_dump_data):
     date = '2020-09-03'
+    output_dir = os.path.join('tests', 'data', 'daily_data')
+    data_dir = os.path.join('tests', 'data', 'snapshots')
+
+    # Setting up files to be processed
     file_names = ['venmo_data_2020-09-03-17:32:18.json',
                   'venmo_data_2020-09-03-16:07:06.json',
                   'venmo_data_2020-09-03-15:49:25.json',
                   'venmo_data_2020-09-04-12:19:12.json',
                   'venmo_data_2020-09-04-15:49:16.json',
                   'venmo_data_2020-09-04-10:06:25.json']
-    path_names = [os.path.join('tests', 'data', 'snapshots', f)
-                  for f in file_names]
+    path_names = [os.path.join(data_dir, f) for f in file_names]
     calls = [call(p) for p in path_names[:3]]
-    path_target = os.path.join('tests', 'data', 'daily_data',
-                               f'venmo_data_{date}.json')
-    with patch('venmo_scraper.utils.consolidate_data.os.path.join') as mock_join:
-        mock_join.return_value = path_target
-        with patch('venmo_scraper.utils.consolidate_data.os.remove') as mock_remove:
-            combine_jsons(path_names, date)
 
+    # Testing correct calls of utility/mocked functions
+    combine_jsons(path_names, output_dir, date)
     mock_remove.assert_has_calls(calls, any_order=False)
     assert mock_remove.call_count == 3
-
+    mock_create_dir.assert_called_once_with(output_dir)
+    
     # Testing output is same as expected
-    path_output = os.path.join('tests', 'data', 'daily_data',
-                               f'venmo_data_{date}.json')
-    path_true = os.path.join('tests', 'data', 'daily_data',
-                             f'venmo_data_{date}_TRUE.json')
-    with open(path_output, 'r') as f:
-        data_output = json.load(f)
+    path_true = os.path.join(output_dir, f'venmo_data_{date}_TRUE.json')
+
     with open(path_true, 'r') as f:
         data_true = json.load(f)
 
-    assert data_output == data_true
-    os.remove(path_output)
+    mock_dump_data.assert_called_once_with(data_true, output_dir, date=date) 

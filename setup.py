@@ -18,6 +18,7 @@ setup(
     scripts=[
         'bin/run_scraper',
         'bin/generate_env',
+        'venmo_scraper/utils/consolidate_data.py',
         'venmo_scraper/scrape_public_feed.py',
         'venmo_scraper/get_public_feed.py'
     ]
