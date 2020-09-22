@@ -1,0 +1,66 @@
+#!/bin/bash
+
+function generate {
+    collect_responses responses
+    
+    if ! confirm_responses; then
+	exit 1
+    fi
+    
+    if [[ -e .env ]]; then
+	echo "Deleting .env."
+	rm .env
+    fi
+    
+    for field in "${!responses[@]}"; do
+	echo "export $field=${responses[$field]}" >> .env
+    done
+}
+
+function collect_responses {
+    declare -n array="$1"
+    echo -n "Enter login: "
+    read array[LOGIN]
+
+    echo -n "Enter password: "
+    read array[PASSWORD]
+
+    echo -n "Enter path to profile: "
+    read array[PROFILE_PATH]
+
+    echo -n "Enter default output directory (optional, press Enter to ignore): "
+    read DEFAULT_OUTPUT_DIR
+    if [[ -n $DEFAULT_OUTPUT_DIR ]]; then
+	array[DEFAULT_OUTPUT_DIR]=$DEFAULT_OUTPUT_DIR
+    fi
+}
+
+function confirm_responses {
+    echo -e "\nIs this correct? (y/n)"
+    for field in "${!responses[@]}"; do
+	echo "$field=${responses[$field]}"
+    done
+    read confirmation
+   
+    if [[ $confirmation == "y" ]]; then
+	return 0
+    else
+	echo "Exiting without creating .env."
+	exit 1
+    fi    
+}
+
+declare -A responses
+
+if [[ -e .env ]]; then
+    while read -p ".env already exists; do you want to overwrite it? (y/n) " yn
+    do
+	case $yn in
+	    [Yy] ) echo -e "Generating new .env.\n"; generate; exit 0;;
+	    [Nn] ) echo "Exiting."; exit 1;;
+	    *) echo "Please answer y (yes) or n (no)." && continue;
+	esac
+    done
+else
+    generate
+fi
