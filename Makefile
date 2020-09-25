@@ -23,7 +23,11 @@ tests:
 	source venv/bin/activate && pytest tests
 
 clean:
-	rm geckodriver.log
+	rm -f geckodriver.log
+	rm -rf venmo_scraper/__pycache__
+	rm -rf venmo_scraper/utils/__pycache__
+	rm -rf venmo_scraper/analysis/__pycache__
+	rm -rf tests/__pycache__
 
 remove_venv:
 	rm -rf venv
