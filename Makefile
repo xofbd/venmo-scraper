@@ -31,3 +31,4 @@ clean:
 
 remove_venv:
 	rm -rf venv
+	rm -rf venmo_scraper.egg-info
