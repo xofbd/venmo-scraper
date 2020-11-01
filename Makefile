@@ -19,11 +19,12 @@ venv/bin/geckodriver: venv
 driver:
 	make venv/bin/geckodriver
 
-tests:
+tests: venv
 	source venv/bin/activate && pytest tests
 
 clean:
 	rm -f geckodriver.log
 	rm -rf venv
 	rm -rf venmo_scraper.egg-info
+	rm -rf .pytest_cache
 	find . | grep __pycache__ | xargs rm -rf
