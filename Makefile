@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-.PHONY: all driver tests clean remove_venv
+.PHONY: all driver tests clean
 
-all: venv venv/bin/geckodriver
+all: clean venv venv/bin/geckodriver
 
 venv: requirements.txt
 	test -d venv || python3 -m venv venv
@@ -24,11 +24,6 @@ tests:
 
 clean:
 	rm -f geckodriver.log
-	rm -rf venmo_scraper/__pycache__
-	rm -rf venmo_scraper/utils/__pycache__
-	rm -rf venmo_scraper/analysis/__pycache__
-	rm -rf tests/__pycache__
-
-remove_venv:
 	rm -rf venv
 	rm -rf venmo_scraper.egg-info
+	find . | grep __pycache__ | xargs rm -rf
