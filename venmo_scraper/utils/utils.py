@@ -6,9 +6,9 @@ from venmo_scraper import logger
 
 
 def create_dir(dir_):
-    """Create directory."""
+    """Create directory, including all intermediate ones."""
     try:
-        os.mkdir(dir_)
+        os.makedirs(dir_)
         message = f"Data output director doesn't exist, creating {dir_}"
         logger.warning(message)
     except OSError:
