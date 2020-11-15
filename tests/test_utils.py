@@ -8,8 +8,21 @@ from venmo_scraper.utils import create_dir, dump_data, load_data
 
 parameters = [('venmo_data_2020-09-06-22:15:01.json', None),
               ('venmo_data_2020-09-07.json', '2020-09-07')]
-dirs = [(os.path.join('data', 'snapshots'), True),
-        (os.path.join('new_dir', 'snapshots'), False)]
+dirs = [(os.path.join('tests', 'data', 'snapshots'), True),
+        (os.path.join('new_dir', 'snapshots'), False),
+        ('tmp', False)]
+
+
+@pytest.fixture(params=dirs)
+def output_dir_data(request):
+    return request.param
+
+
+@pytest.fixture
+def remove_dirs(output_dir_data, request):
+    yield
+    if not output_dir_data[1]:
+        os.removedirs(output_dir_data[0])
 
 
 @pytest.mark.parametrize('file_name, date', parameters)
@@ -40,11 +53,6 @@ def test_load_data(mock_load, mock_file):
     mock_load.assert_called_once_with(mock_file())
 
 
-@pytest.mark.parametrize('dir_, exists', dirs)
-@patch('venmo_scraper.utils.utils.os.mkdir')
-def test_create_dir(mock_mkdir, dir_, exists):
-    if exists:
-        mock_mkdir.side_efffect = OSError
-
-    create_dir(dir_)
-    mock_mkdir.assert_called_once_with(dir_)
+def test_create_dir(output_dir_data, remove_dirs):
+    create_dir(output_dir_data[0])
+    assert os.path.exists(output_dir_data[0])
