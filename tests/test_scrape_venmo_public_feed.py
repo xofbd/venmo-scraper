@@ -3,9 +3,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from venmo_scraper.constants import DEFAULT_OUTPUT_DIR
 from venmo_scraper.scrape_public_feed import (scrape_public_feed,
-                                              sign_into_venmo,
                                               visit_public_feed)
 
 parameter_str = 'headless, sleep_duration, current_url, bad_url'
