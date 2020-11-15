@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Note: As of late March 2020, Venmo started putting out fake data to their public
-web API. The fake data consists of twenty or so transactions with generic user
-names and messages.
+Note: As of late March 2020, Venmo started putting out fake data to their
+public web API. The fake data consists of twenty or so transactions with
+generic user names and messages.
 """
 import requests
 

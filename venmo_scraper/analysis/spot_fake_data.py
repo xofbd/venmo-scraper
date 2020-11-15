@@ -3,7 +3,6 @@ This script looks to spot when Venmo started releasing fake data to their
 public API.
 """
 import glob
-import json
 import os
 
 from venmo_scraper.utils import load_data
