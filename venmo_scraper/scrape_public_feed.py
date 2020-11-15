@@ -136,7 +136,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--headless',
                         default=False,
                         action='store_true',
-                        help="use the browser's GUI")
+                        help="do not use the browser's GUI")
     parser.add_argument('-o', '--output_dir',
                         default=DEFAULT_OUTPUT_DIR,
                         action='store',
