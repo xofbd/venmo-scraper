@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-.PHONY: all driver tests clean
+.PHONY: all driver install tests clean
 
-all: clean venv venv/bin/geckodriver
+all: clean venv venv/bin/geckodriver install
 
 venv: requirements.txt
 	test -d venv || python3 -m venv venv
@@ -19,11 +19,19 @@ venv/bin/geckodriver: venv
 driver:
 	make venv/bin/geckodriver
 
+.install: venv
+	source venv/bin/activate && pip install -e .
+	touch .install
+
+install:
+	make .install
+
 tests: venv
 	source venv/bin/activate && pytest tests
 
 clean:
 	rm -f geckodriver.log
+	rm -f .install
 	rm -rf venv
 	rm -rf venmo_scraper.egg-info
 	rm -rf .pytest_cache
