@@ -4,4 +4,6 @@ data
 .env
 venv
 *.egg-info
+.pip-tools
 .install
+.dev
