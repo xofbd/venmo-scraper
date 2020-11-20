@@ -13,7 +13,7 @@ make venv
 ```
 1. The following steps are required if you wish to run `scrape_public_feed.py`. You will need to install Firefox, at least version 60 or above. Once you have the appropriate Firefox version installed, run
 ```bash
-make driver
+make venv/bin/driver
 ```
 to install the appropriate browser driver. Note, running `make all` takes care of this and the previous step.
 1. You need to create a Venmo account and create a file named `.env` in the project's root directory. Use the below template for your `.env` file, filling in your details. You can also run `generate_env` to help generate the file.
