@@ -35,7 +35,7 @@ dev:
 
 .dev: venv .pip-tools requirements/requirements*.txt
 	${ACTIVATE_VENV} && \
-	pip-sync requirements/requirements.txt requirements/requirements-dev.txt
+	pip-sync requirements/requirements.txt requirements/requirements-dev.txt && \
 	pip install -e .
 	rm -f .install
 	touch .dev
