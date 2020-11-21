@@ -1,5 +1,4 @@
 # Venmo Transaction Data
-
 Venmo is a service that allows people to easily send money to each other. Depending on a person's profile setting, their Venmo transactions are made public. This repo contains code to obtain that public transaction data. This project is purely for academic use.
 
 ## Installation
