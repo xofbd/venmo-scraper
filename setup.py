@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 from venmo_scraper import __version__
 
